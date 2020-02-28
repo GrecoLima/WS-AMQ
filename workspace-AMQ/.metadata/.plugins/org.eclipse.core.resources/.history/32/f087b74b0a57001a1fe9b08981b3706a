@@ -1,0 +1,11 @@
+package br.com.sulamerica.vidaweb.fis.engine;
+
+import br.com.sulamerica.vidaweb.fis.model.response.SolicitacaoRecebidaResponse;
+
+public class RestEngine {
+	public SolicitacaoRecebidaResponse response(String mensagem) {
+		SolicitacaoRecebidaResponse solicitacaoResponse = new SolicitacaoRecebidaResponse();
+		solicitacaoResponse.setRetorno(mensagem);
+		return solicitacaoResponse;
+	}
+}

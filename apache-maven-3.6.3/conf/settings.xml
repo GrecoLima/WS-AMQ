@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <localRepository>/home/grecomilani/codereadystudio/apache-maven-3.6.3/repository</localRepository>
+
+  <pluginGroups>
+  </pluginGroups>
+
+  <proxies></proxies>
+
+  <mirrors>
+    <mirror>
+      <id>nexus</id>
+      <mirrorOf>*,!releases,!snapshots</mirrorOf>
+      <url>http://s10apl265.sulamerica.br/repository/m2/</url>
+    </mirror>
+    <mirror>
+      <id>releases</id>
+      <mirrorOf>releases</mirrorOf>
+      <url>http://s10apl265.sulamerica.br/repository/m2-sas-releases/</url>
+    </mirror>
+    <mirror>
+      <id>snapshots</id>
+      <mirrorOf>snapshots</mirrorOf>
+      <url>http://s10apl265.sulamerica.br/repository/m2-sas-snapshots/</url>
+    </mirror>
+  </mirrors>
+
+  <profiles>
+    <profile>
+      <id>nexus</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+        <repository>
+          <id>releases</id>
+          <url>http://s10apl265.sulamerica.br/repository/m2-sas-releases/</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+        <repository>
+          <id>snapshots</id>
+          <url>http://s10apl265.sulamerica.br/repository/m2-sas-snapshots/</url>
+          <releases><enabled>false</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+      </repositories>
+     <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>nexus</activeProfile>
+  </activeProfiles>
+</settings>

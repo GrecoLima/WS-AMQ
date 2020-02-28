@@ -1,0 +1,61 @@
+package br.com.sulamerica.vidaweb.fis.route;
+
+import org.apache.camel.Exchange;
+import org.apache.camel.LoggingLevel;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.dataformat.JsonLibrary;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+
+import br.com.sulamerica.vidaweb.fis.engine.RestEngine;
+import br.com.sulamerica.vidaweb.fis.model.request.AutenticacaoVOBatch;
+import br.com.sulamerica.vidaweb.fis.model.response.SolicitacaoRecebidaResponse;
+
+@Component
+public class importarMovimentacaoRoute extends RouteBuilder {
+
+	@Value("${tracking.logger}")
+	public String VIDAWEB_TRACKING;
+	
+
+	private final String host = "http://localhost:9092/api/importarMovimentacao";
+	private final String endPoint = "http://localhost:9092/api/importarMovimentacao";
+
+	@Override
+	public void configure() throws Exception {
+
+		// Declaração da rota para inclusão na fila - importarMovimentacao
+		rest("/vidaweb").post("/importarMovimentacao").consumes(MediaType.APPLICATION_JSON_VALUE)
+				.produces(MediaType.APPLICATION_JSON_VALUE).type(AutenticacaoVOBatch.class)
+				.outType(SolicitacaoRecebidaResponse.class).to("direct:importarMovimentacaoToQueue");
+
+		// Ação da rota para inclusão na fila - importarMovimentacao
+		from("direct:importarMovimentacaoToQueue") // rota para incluir na fila
+				.routeId("importarMovimentacaoToQueue").doTry().marshal().json(JsonLibrary.Gson, true)
+				.log(LoggingLevel.INFO, VIDAWEB_TRACKING, "BODY PARA O AMQ: ${body}")
+				.to("activemq:queue:importarMovimentacaoqueue?exchangePattern=InOnly") // envia para a fila
+				.bean(RestEngine.class, "response('Recebido com sucesso')")
+				.log(LoggingLevel.DEBUG, VIDAWEB_TRACKING, "BODY RESPONSE: ${body}").doCatch(Exception.class)
+				.log(LoggingLevel.ERROR, VIDAWEB_TRACKING, "${exception.stacktrace}")
+				.bean(RestEngine.class, "response('Erro ao enviar')");
+
+		// controla o erro na rota - importarMovimentacao
+		from("activemq:queue:importarMovimentacaoqueue")
+				.errorHandler(deadLetterChannel("seda:importarMovimentacaoDLQ").maximumRedeliveries(3)
+						.redeliveryDelay(1000).useOriginalMessage()) // error handler: faz 3 tentativas para a entrega
+																		// da mensagem
+				.setHeader("Content-Type", constant("application/json"))
+				.setHeader("Accept", constant("application/json")).setHeader(Exchange.HTTP_METHOD, constant("POST"))
+				.removeHeader(Exchange.HTTP_PATH).setBody(simple("${body}")).to("http:" + host + endPoint + "?bridgeEndpoint=true");
+
+		// gravando na fila DLQ - importarMovimentacaoDLQ
+		from("seda:importarMovimentacaoDLQ").id("send-importarMovimentacaoqueueDLQ")
+				.log(LoggingLevel.ERROR, VIDAWEB_TRACKING,
+						"MENSAGEM GRAVADA NA DLQ importarMovimentacao.DLQ\n${body}\n")
+				.multicast().parallelProcessing().to("activemq:queue:importarMovimentacaoqueue.DLQ")// enviando para
+																									// fila
+		;
+
+	}
+}

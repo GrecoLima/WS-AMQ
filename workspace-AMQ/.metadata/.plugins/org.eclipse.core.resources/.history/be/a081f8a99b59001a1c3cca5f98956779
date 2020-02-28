@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+	<include
+		resource="org/springframework/boot/logging/logback/base.xml" />
+	<springProperty name="environment"
+		source="spring.profiles.active" />
+	<springProperty name="graylog.host"
+		source="graylog.host" />
+	<springProperty name="graylog.port"
+		source="graylog.port" />
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+			by default -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="graylog"
+		class="biz.paluch.logging.gelf.logback.GelfLogbackAppender">
+		<host>${graylog.host}</host>
+		<port>${graylog.port}</port>
+		<version>1.1</version>
+		<facility>${project.artifactId}</facility>
+		<extractStackTrace>true</extractStackTrace>
+		<filterStackTrace>true</filterStackTrace>
+		<mdcProfiling>false</mdcProfiling>
+		<timestampPattern>yyyy-MM-dd HH:mm:ss,SSS</timestampPattern>
+		<maximumMessageSize>8192</maximumMessageSize>
+
+		<!-- Campo para diferenciação das apps, lido do -->
+		<additionalFields>environment=${environment},application=${project.artifactId}</additionalFields>
+		<additionalFieldTypes>environment=String,application=String</additionalFieldTypes>
+
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="graylog" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>

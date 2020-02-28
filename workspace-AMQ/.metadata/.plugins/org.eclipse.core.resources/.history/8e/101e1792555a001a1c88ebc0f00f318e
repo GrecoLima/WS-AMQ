@@ -1,0 +1,3 @@
+amq.u=admin
+amq.p=admin123
+amq.url=tcp://develop-tcp.amq-vidaweb-develop.svc:61616?jms.prefetchPolicy.queuePrefetch=1

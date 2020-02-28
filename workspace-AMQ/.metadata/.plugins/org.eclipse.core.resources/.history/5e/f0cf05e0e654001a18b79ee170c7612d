@@ -1,0 +1,62 @@
+package br.com.sulamerica.vidaweb.fis.route;
+
+import org.apache.camel.Exchange;
+import org.apache.camel.LoggingLevel;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.dataformat.JsonLibrary;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+
+import br.com.sulamerica.vidaweb.fis.engine.RestEngine;
+import br.com.sulamerica.vidaweb.fis.model.request.AutenticacaoVOBatch;
+import br.com.sulamerica.vidaweb.fis.model.response.SolicitacaoRecebidaResponse;
+
+@Component
+public class ImportacaoDpsRoute extends RouteBuilder {
+
+	@Value("${tracking.logger}")
+	public String VIDAWEB_TRACKING;
+
+	public String HOST = System.getenv("HOST_VW_BATCH");
+	
+	private final String endPoint = "importacaoDps";
+
+	@Override
+	public void configure() throws Exception {
+
+		// Declaração da rota para inclusão na fila - importacaoDps
+		rest("/vidaweb").post("/importacaoDps").consumes(MediaType.APPLICATION_JSON_VALUE)
+				.produces(MediaType.APPLICATION_JSON_VALUE).type(AutenticacaoVOBatch.class)
+				.outType(SolicitacaoRecebidaResponse.class).to("direct:importacaoDpsToQueue");
+
+		// Ação da rota para inclusão na fila - importacaoDps
+		from("direct:importacaoDpsToQueue") // rota para incluir na fila
+				.routeId("importacaoDpsToQueue").doTry().marshal().json(JsonLibrary.Gson, true)
+				.log(LoggingLevel.INFO, VIDAWEB_TRACKING, "BODY PARA O AMQ: ${body}")
+				.to("activemq:queue:importacaoDpsqueue?exchangePattern=InOnly") // envia para a fila
+				.bean(RestEngine.class, "response('Recebido com sucesso')")
+				.log(LoggingLevel.DEBUG, VIDAWEB_TRACKING, "BODY RESPONSE: ${body}").doCatch(Exception.class)
+				.log(LoggingLevel.ERROR, VIDAWEB_TRACKING, "${exception.stacktrace}")
+				.bean(RestEngine.class, "response('Erro ao enviar')");
+
+		// Controla o erro na rota - importacaoDps
+		from("activemq:queue:importacaoDpsqueue")
+				.errorHandler(deadLetterChannel("seda:importacaoDpsDLQ").maximumRedeliveries(3).redeliveryDelay(1000)
+				.useOriginalMessage()) // error handler: faz 3 tentativas para a entrega da mensagem
+				.setHeader("Content-Type", constant("application/json"))
+				.setHeader("Accept", constant("application/json")).setHeader(Exchange.HTTP_METHOD, constant("POST"))
+				.removeHeader(Exchange.HTTP_PATH).setBody(simple("${body}")).to(HOST_VW_BATCH + endPoint + "?bridgeEndpoint=true");
+
+		System.out.println("http:"+ HOST + endPoint + "?bridgeEndpoint=true");
+		
+		// Gravando na fila DLQ - importacaoDpsDLQ
+		from("seda:importacaoDpsDLQ").id("send-importacaoDpsqueueDLQ")
+				.log(LoggingLevel.ERROR, "EXCEPTION PARA O INVOKE DO SERVIÇO /api/cargaArquivoMov ${exception.stacktrace} \n")
+				.log(LoggingLevel.ERROR, VIDAWEB_TRACKING, "MENSAGEM GRAVADA NA DLQ importacaoDps.DLQ\n${body}\n")
+				.multicast().parallelProcessing().to("activemq:queue:importacaoDpsqueue.DLQ")// enviando para fila
+			
+		;
+
+	}
+}

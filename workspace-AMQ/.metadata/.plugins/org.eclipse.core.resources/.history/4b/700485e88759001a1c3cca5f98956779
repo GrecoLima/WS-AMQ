@@ -1,0 +1,16 @@
+logging.config=classpath:logback-spring.xml
+spring.profiles.active=local
+tracking.logger=amq-vidaweb-tracking
+graylog.host=udp:localhost
+graylog.port=12201
+server.address=0.0.0.0
+server.port=8080
+management.address=0.0.0.0
+management.port=8889
+# disable all management enpoints except health
+endpoints.enabled=false
+endpoints.health.enabled=true
+amq.u=admin
+amq.p=admin123
+amq.url=develop-tcp.amq-vidaweb-develop.svc:61616?jms.prefetchPolicy.queuePrefetch=1s
+jks.pass=sas

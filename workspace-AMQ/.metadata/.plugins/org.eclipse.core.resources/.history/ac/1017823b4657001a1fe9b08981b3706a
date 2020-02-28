@@ -1,0 +1,300 @@
+package br.com.sulamerica.vidaweb.fis.model.request;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import br.com.sulamerica.vidaweb.fis.model.def.SituacaoMovSegTemp;
+import br.com.sulamerica.vidaweb.fis.model.def.SituacaoSegurado;
+import br.com.sulamerica.vidaweb.fis.model.def.TipoArquivoDownload;
+import br.com.sulamerica.vidaweb.fis.model.def.TipoExportacaoFatura;
+import br.com.sulamerica.vidaweb.fis.model.def.TipoMovimentacaoSuv;
+
+public class AutenticacaoVOBatch implements Serializable{
+	
+	private static final long serialVersionUID = 454545L;
+
+	private String nomeArquivo;
+
+	private Long autenticacaoId;
+
+	private String usuarioId;
+
+	private boolean ehImportacao;
+
+	private Long faturaId;
+
+	private String dataAutenticacao;
+
+	private String dataUltimaAutenticacao;
+
+	private String sessao;
+
+	private Date dataSessao;
+
+	private Date dataSaida;
+
+	private String login;
+
+	private Long empresaId;
+
+	private Long apoliceId;
+
+	private Long grupoId;
+
+	private Long planoId;
+
+	private boolean importacao;
+
+	private TipoArquivoDownload tipoArquivoDownload;
+
+	private TipoExportacaoFatura tipoExportacaoFatura;
+
+	private SituacaoMovSegTemp situacaoMovSegTemp;
+
+	private boolean excluirSegurados;
+
+	private String nome;
+
+	private String cpf;
+
+	private String matricula;
+
+	private String tipoArquivo;
+
+	private String tipoBusca;
+
+	private SituacaoSegurado situacaoSegurado;
+
+	private TipoMovimentacaoSuv tipoMovimentacaoSuv;
+
+	public String getNomeArquivo() {
+		return nomeArquivo;
+	}
+
+	public void setNomeArquivo(String nomeArquivo) {
+		this.nomeArquivo = nomeArquivo;
+	}
+
+	public Long getAutenticacaoId() {
+		return autenticacaoId;
+	}
+
+	public void setAutenticacaoId(Long autenticacaoId) {
+		this.autenticacaoId = autenticacaoId;
+	}
+
+	public String getUsuarioId() {
+		return usuarioId;
+	}
+
+	public void setUsuarioId(String usuarioId) {
+		this.usuarioId = usuarioId;
+	}
+
+	public boolean getEhImportacao() {
+		return ehImportacao;
+	}
+
+	public void setEhImportacao(boolean ehImportacao) {
+		this.ehImportacao = ehImportacao;
+	}
+
+	public Long getFaturaId() {
+		return faturaId;
+	}
+
+	public void setFaturaId(Long faturaId) {
+		this.faturaId = faturaId;
+	}
+
+	public String getDataAutenticacao() {
+		return dataAutenticacao;
+	}
+
+	public void setDataAutenticacao(String dataAutenticacao) {
+		this.dataAutenticacao = dataAutenticacao;
+	}
+
+	public String getDataUltimaAutenticacao() {
+		return dataUltimaAutenticacao;
+	}
+
+	public void setDataUltimaAutenticacao(String dataUltimaAutenticacao) {
+		this.dataUltimaAutenticacao = dataUltimaAutenticacao;
+	}
+
+	public String getSessao() {
+		return sessao;
+	}
+
+	public void setSessao(String sessao) {
+		this.sessao = sessao;
+	}
+
+	public Date getDataSessao() {
+		return dataSessao;
+	}
+
+	public void setDataSessao(Date dataSessao) {
+		this.dataSessao = dataSessao;
+	}
+
+	public Date getDataSaida() {
+		return dataSaida;
+	}
+
+	public void setDataSaida(Date dataSaida) {
+		this.dataSaida = dataSaida;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public Long getEmpresaId() {
+		return empresaId;
+	}
+
+	public void setEmpresaId(Long empresaId) {
+		this.empresaId = empresaId;
+	}
+
+	public Long getApoliceId() {
+		return apoliceId;
+	}
+
+	public void setApoliceId(Long apoliceId) {
+		this.apoliceId = apoliceId;
+	}
+
+	public Long getGrupoId() {
+		return grupoId;
+	}
+
+	public void setGrupoId(Long grupoId) {
+		this.grupoId = grupoId;
+	}
+
+	public Long getPlanoId() {
+		return planoId;
+	}
+
+	public void setPlanoId(Long planoId) {
+		this.planoId = planoId;
+	}
+
+	public boolean isImportacao() {
+		return importacao;
+	}
+
+	public void setImportacao(boolean importacao) {
+		this.importacao = importacao;
+	}
+
+	public TipoArquivoDownload getTipoArquivoDownload() {
+		return tipoArquivoDownload;
+	}
+
+	public void setTipoArquivoDownload(TipoArquivoDownload tipoArquivoDownload) {
+		this.tipoArquivoDownload = tipoArquivoDownload;
+	}
+
+	public TipoExportacaoFatura getTipoExportacaoFatura() {
+		return tipoExportacaoFatura;
+	}
+
+	public void setTipoExportacaoFatura(TipoExportacaoFatura tipoExportacaoFatura) {
+		this.tipoExportacaoFatura = tipoExportacaoFatura;
+	}
+
+	public SituacaoMovSegTemp getSituacaoMovSegTemp() {
+		return situacaoMovSegTemp;
+	}
+
+	public void setSituacaoMovSegTemp(SituacaoMovSegTemp situacaoMovSegTemp) {
+		this.situacaoMovSegTemp = situacaoMovSegTemp;
+	}
+
+	public boolean isExcluirSegurados() {
+		return excluirSegurados;
+	}
+
+	public void setExcluirSegurados(boolean excluirSegurados) {
+		this.excluirSegurados = excluirSegurados;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+
+	public String getTipoArquivo() {
+		return tipoArquivo;
+	}
+
+	public void setTipoArquivo(String tipoArquivo) {
+		this.tipoArquivo = tipoArquivo;
+	}
+
+	public String getTipoBusca() {
+		return tipoBusca;
+	}
+
+	public void setTipoBusca(String tipoBusca) {
+		this.tipoBusca = tipoBusca;
+	}
+
+	public SituacaoSegurado getSituacaoSegurado() {
+		return situacaoSegurado;
+	}
+
+	public void setSituacaoSegurado(SituacaoSegurado situacaoSegurado) {
+		this.situacaoSegurado = situacaoSegurado;
+	}
+
+	public TipoMovimentacaoSuv getTipoMovimentacaoSuv() {
+		return tipoMovimentacaoSuv;
+	}
+
+	public void setTipoMovimentacaoSuv(TipoMovimentacaoSuv tipoMovimentacaoSuv) {
+		this.tipoMovimentacaoSuv = tipoMovimentacaoSuv;
+	}
+
+	@Override
+	public String toString() {
+		return "EnvioCargaArquivoMovVO [nomeArquivo=" + nomeArquivo + ", autenticacaoId=" + autenticacaoId
+				+ ", usuarioId=" + usuarioId + ", ehImportacao=" + ehImportacao + ", faturaId=" + faturaId
+				+ ", dataAutenticacao=" + dataAutenticacao + ", dataUltimaAutenticacao=" + dataUltimaAutenticacao
+				+ ", sessao=" + sessao + ", dataSessao=" + dataSessao + ", dataSaida=" + dataSaida + ", login=" + login
+				+ ", empresaId=" + empresaId + ", apoliceId=" + apoliceId + ", grupoId=" + grupoId + ", planoId="
+				+ planoId + ", importacao=" + importacao + ", tipoArquivoDownload=" + tipoArquivoDownload
+				+ ", tipoExportacaoFatura=" + tipoExportacaoFatura + ", situacaoMovSegTemp=" + situacaoMovSegTemp
+				+ ", excluirSegurados=" + excluirSegurados + ", nome=" + nome + ", cpf=" + cpf + ", matricula="
+				+ matricula + ", tipoArquivo=" + tipoArquivo + ", tipoBusca=" + tipoBusca + ", situacaoSegurado="
+				+ situacaoSegurado + ", tipoMovimentacaoSuv=" + tipoMovimentacaoSuv + "]";
+	}
+
+}

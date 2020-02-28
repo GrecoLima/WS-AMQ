@@ -1,0 +1,65 @@
+package br.com.sulamerica.vidaweb.fis.route;
+
+import org.apache.camel.Exchange;
+import org.apache.camel.LoggingLevel;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.dataformat.JsonLibrary;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+
+import br.com.sulamerica.vidaweb.fis.engine.RestEngine;
+import br.com.sulamerica.vidaweb.fis.model.request.Cabecalho;
+import br.com.sulamerica.vidaweb.fis.model.response.SolicitacaoRecebidaResponse;
+import br.com.sulamerica.vidaweb.fis.setup.SSLSetup;
+
+@Component
+public class EnvioMovimentacaoRoute extends RouteBuilder {
+
+	@Value("${tracking.logger}")
+	public String VIDAWEB_TRACKING;
+
+	public String HOST_VW_BATCH = System.getenv("HOST_VW_BATCH");
+
+	private final String endPoint = "envioMovimentacao";
+
+	@Override
+	public void configure() throws Exception {
+
+		SSLSetup.setupSSLConext(getContext());
+
+		// Declaração da rota para inclusão na fila - envioMovimentacao
+		rest("/vidaweb").post("/envioMovimentacao").consumes(MediaType.APPLICATION_JSON_VALUE)
+				.produces(MediaType.APPLICATION_JSON_VALUE).type(Cabecalho.class)
+				.outType(SolicitacaoRecebidaResponse.class).to("direct:envioMovimentacaoToQueue");
+
+		// Ação da rota para inclusão na fila - envioMovimentacao
+		from("direct:envioMovimentacaoToQueue") // rota para incluir na fila
+				.routeId("envioMovimentacaoToQueue").doTry().marshal().json(JsonLibrary.Gson, true)
+				.log(LoggingLevel.INFO, VIDAWEB_TRACKING, "BODY PARA O AMQ: ${body}")
+				.to("activemq:queue:envioMovimentacaoqueue?exchangePattern=InOnly") // envia para a fila
+				.bean(RestEngine.class, "response('Recebido com sucesso')")
+				.log(LoggingLevel.DEBUG, VIDAWEB_TRACKING, "BODY RESPONSE: ${body}").doCatch(Exception.class)
+				.log(LoggingLevel.ERROR, VIDAWEB_TRACKING, "${exception.stacktrace}")
+				.bean(RestEngine.class, "response('Erro ao enviar')");
+
+		// controla o erro na rota - envioMovimentacao
+		from("activemq:queue:envioMovimentacaoqueue")
+				.errorHandler(deadLetterChannel("seda:envioMovimentacaoDLQ").maximumRedeliveries(3)
+						.redeliveryDelay(1000).useOriginalMessage()) // error handler: faz 3 tentativas para a entrega
+																		// da mensagem
+				.setHeader("Content-Type", constant("application/json"))
+				.setHeader("Accept", constant("application/json")).setHeader(Exchange.HTTP_METHOD, constant("POST"))
+				.removeHeader(Exchange.HTTP_PATH).setBody(simple("${body}"))
+				.to(HOST_VW_BATCH + endPoint + "?bridgeEndpoint=true");
+
+		// gravando na fila DLQ - envioMovimentacaoDLQ
+		from("seda:envioMovimentacaoDLQ").id("send-envioMovimentacaoqueueDLQ")
+				.log(LoggingLevel.ERROR,
+						"EXCEPTION PARA O INVOKE DO SERVIÇO /api/envioMovimentacao ${exception.stacktrace} \n")
+				.log(LoggingLevel.ERROR, VIDAWEB_TRACKING, "MENSAGEM GRAVADA NA DLQ envioMovimentacao.DLQ\n${body}\n")
+				.multicast().parallelProcessing().to("activemq:queue:envioMovimentacaoqueue.DLQ")// enviando para fila
+		;
+
+	}
+}

@@ -1,0 +1,24 @@
+package br.com.sulamerica.vidaweb.fis.setup;
+
+public class SSLSetup {
+
+	public void setupSSLConext(CamelContext camelContext) throws Exception {
+
+        KeyStoreParameters keyStoreParameters = new KeyStoreParameters();
+        // Change this path to point to your truststore/keystore as jks files
+        keyStoreParameters.setResource("sas-fismodelo.jks");
+        keyStoreParameters.setPassword(pass);
+
+        TrustManagersParameters trustManagersParameters = new TrustManagersParameters();
+        trustManagersParameters.setKeyStore(keyStoreParameters);
+
+        SSLContextParameters sslContextParameters = new SSLContextParameters();
+        sslContextParameters.setTrustManagers(trustManagersParameters);
+
+        HttpComponent httpComponent = camelContext.getComponent("https4", HttpComponent.class);
+        httpComponent.setSslContextParameters(sslContextParameters);
+        
+    }
+	
+	
+}

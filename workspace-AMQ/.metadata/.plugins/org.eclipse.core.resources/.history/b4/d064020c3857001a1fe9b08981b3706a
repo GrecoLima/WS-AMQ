@@ -1,0 +1,60 @@
+# Sulamérica Vidaweb - AMQ
+
+Modelo base para construção da fila e rotas para insersão e consumo.
+
+**Inicie o trabalho fazendo um fork com sincronização desse repositório, para que atualizações feitas nesse modelo propaguem para seus forks via pull request.**
+
+## Propriedades
+amq.u: usuário  
+amq.p: senha  
+amq.url: url do amq
+
+Os profiles _hml_ e _prd_ estão configurados para ler os valores das propriedades a partir de **variáveis de ambiente** definidas no arquivo **infra.yml**. A url do AMQ varia de acordo com o namespace do seu projeto _openshift_.
+## Estrutura
+Contexto de aplicação: (RestSetup.java)
+>/lgpd-fis
+
+
+Entrada de solicitações (AMQRoute.java)
+>POST /lgpd/solicitacoes
+
+Nome da fila (AMQRoute.java)
+>lgpd-queue
+
+Modelos
+>br.com.sulamerica.lgpd.fis.model  
+>|_ def (Constantes do projeto)  
+>|_ request (Objetos de entrada)  
+>|_ response (Objetos de saída)  
+
+## Log centralizado
+Para centralização de logs, foi utilizado o appender do graylog. Como ainda não está definido 
+corporativamente como será utilizado, foi incluído no projeto um appender UDP como forma de envio.
+
+O appender está configurado para enviar todos os logs da aplicação para o log centralizado. 
+Para diferenciar as requisições de monitoramento do log geral, foi incluido um logger chamado _lgpd-tracking_
+que deverá ser utilizado como o logger para rastreio das solicitações. 
+
+Utilizando uma versão local com docker:
+>$ docker run --name mongo -d mongo:3  
+>
+>$ docker run --name elasticsearch \\  
+>    -e "http.host=0.0.0.0" \\  
+>    -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \\  
+>    -d docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.5  
+>
+>$ docker run --name graylog --link mongo --link elasticsearch \\  
+>    -p 9000:9000 -p 12201:12201/udp -p 1514:1514 \\  
+>    -e GRAYLOG_HTTP_EXTERNAL_URI="http://127.0.0.1:9000/" \\  
+>    -d graylog/graylog:3.2  
+
+Faça login pela url http://localhost:9000 com o usuário admin/admin. Inclua um input em _system > inputs_.
+>Select input: Gelf UDP
+>Global: marcado
+>Bind Address: 0.0.0.0
+>Port: 12201
+
+Demais campos default.
+## TODO
+* Rota para fila de retorno (modelo já encontra-se em response)
+* Camada de segurança

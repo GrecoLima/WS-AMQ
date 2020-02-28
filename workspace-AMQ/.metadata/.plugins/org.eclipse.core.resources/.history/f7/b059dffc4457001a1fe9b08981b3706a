@@ -1,0 +1,45 @@
+package br.com.sulamerica.vidaweb.fis.setup;
+
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.servlet.CamelHttpTransportServlet;
+import org.apache.camel.model.rest.RestBindingMode;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+@Component
+public class RestSetup
+		extends RouteBuilder
+{
+
+	//Contexto
+	private static final String APP = "amq-vidaweb";
+
+	@Bean
+	public ServletRegistrationBean servletRegistrationBean()
+	{
+		ServletRegistrationBean servlet = new ServletRegistrationBean(new CamelHttpTransportServlet(), "/" + APP + "/*");
+		servlet.setName("CamelServlet");
+		return servlet;
+	}
+
+	@Override
+	public void configure()
+			throws Exception
+	{
+		restConfiguration()
+				.component("servlet")
+				.port("8081")
+				.scheme("https")
+				.contextPath("/" + APP) // deve ser a mesma string do objeto ServletRegistrationBean em Application
+				.apiProperty("api.title", "amq-vidaweb")
+				.apiProperty("api.version", "1.0")
+				.apiContextPath("/api-doc")
+				.bindingMode(RestBindingMode.json)
+				.enableCORS(true)
+				.dataFormatProperty("printPretty", "true");
+
+	}
+
+	
+}

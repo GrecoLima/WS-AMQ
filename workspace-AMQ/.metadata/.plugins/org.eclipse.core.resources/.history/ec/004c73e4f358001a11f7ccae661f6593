@@ -1,0 +1,101 @@
+sulamerica:
+  bu: vidaprev
+environments:
+- name: develop
+  value:
+  - name: JVM_ARGUMENTS
+    value: -Dspring.profiles.active=dsv -Dsulamerica.env=dsv -Dsulamerica.logapp=debug -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8
+  - name: OS_ENV
+    value: dsv
+  - name: TZ
+    value: America/Sao_Paulo
+  - name: AMQ_USER
+    value: admin
+  - name: AMQ_PASSWORD
+    value: admin123
+  - name: AMQ_URL
+    value: tcp://develop-tcp.amq-vidaweb-develop.svc:61616?jms.prefetchPolicy.queuePrefetch=1
+  - name: HOST_VW_BATCH
+    value: https://vidabatchsb-hml.paas.sulamerica.br/api/
+- name: homolog
+  value:
+  - name: JVM_ARGUMENTS
+    value: -Dspring.profiles.active=hml -Dsulamerica.env=hml -Dsulamerica.logapp=debug -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8
+  - name: OS_ENV
+    value: hml
+  - name: TZ
+    value: America/Sao_Paulo
+  - name: AMQ_USER
+    value: admin
+  - name: AMQ_PASSWORD
+    value: admin
+  - name: AMQ_URL
+    value: tcp://homolog-tcp.amq-vidaweb-homolog.svc:61616?jms.prefetchPolicy.queuePrefetch=1
+  - name: HOST_VW_BATCH
+    value:  https://vidabatchsb-hm.paas.sulamerica.br/api/
+- name: master
+  value:
+  - name: JVM_ARGUMENTS
+    value: -Dspring.profiles.active=prd -Dsulamerica.env=prd -Dsulamerica.logapp=debug -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8
+  - name: OS_ENV
+    value: prd
+  - name: TZ
+    value: America/Sao_Paulo
+  - name: AMQ_USER
+    value: admin
+  - name: AMQ_PASSWORD
+    value: admin123
+  - name: AMQ_URL
+    value: tcp://master-tcp.amq-vidaweb-master.svc:61616?jms.prefetchPolicy.queuePrefetch=1
+  - name: HOST_VW_BATCH
+    value: https://vidabatchsb.paas.sulamerica.br/api/
+custom:
+  build:
+    snapshotversion: branchBuild
+    releaseversion: hashCommit
+  notify:
+    email: greco.lima.milani@ibm.com
+provider:
+  name: openshift
+  namespaces:
+  - name: develop
+    value: amq-vidaweb-bkp-develop
+  - name: homolog
+    value: amq-vidaweb-homolog    
+  - name: master
+    value: amq-vidaweb-master
+  capacitys:
+  - name: develop
+    value: medium
+  - name: homolog
+    value: medium    
+  - name: master
+    value: medium
+  storages:
+  - name: amq-vidaweb-develop
+    value: ''
+  - name: amq-vidaweb-homolog
+    value: ''    
+  - name: amq-vidaweb-master
+    value: ''
+  pods:
+  - name: develop
+    value: 1
+  - name: homolog
+    value: 1    
+  - name: master
+    value: 1
+  runtime: java:fis+amq-lts
+  routes:
+  - name: develop
+    value:
+    - domain: amq-vidaweb-develop.paas.sulamerica.br
+      path: /
+  - name: homolog
+    value:
+    - domain: amq-vidaweb-homolog.paas.sulamerica.br
+      path: /      
+  - name: master
+    value:
+    - domain: amq-vidaweb.paas.sulamerica.br
+      path: /

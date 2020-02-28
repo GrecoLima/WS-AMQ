@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+<fullyQualifiedTypeName name="br.com.sulamerica.vidaweb.fis.model.request.AutenticacaoVOBatch"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="org.apache.http.conn.scheme.Scheme"/>
+<fullyQualifiedTypeName name="org.apache.camel.component.http4.HttpComponent"/>
+<fullyQualifiedTypeName name="java.security.cert.CertificateException"/>
+<fullyQualifiedTypeName name="javax.net.ssl.SSLContext"/>
+<fullyQualifiedTypeName name="org.apache.http.config.Registry"/>
+<fullyQualifiedTypeName name="org.apache.camel.component.http4.HttpClientConfigurer"/>
+<fullyQualifiedTypeName name="org.apache.http.conn.ssl.SSLSocketFactory"/>
+<fullyQualifiedTypeName name="br.com.sulamerica.vidaweb.fis.setup.SSLSetup"/>
+</qualifiedTypeNameHistroy>

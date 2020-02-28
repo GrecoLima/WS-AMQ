@@ -1,0 +1,67 @@
+// ------------------------------------------------------------------
+// Transitive dependencies of this project determined from the
+// maven pom organized by organization.
+// ------------------------------------------------------------------
+
+Maven :: Indexer Core
+
+
+From: 'an unknown organization'
+  - jakarta-regexp  jakarta-regexp:jakarta-regexp:jar:1.4
+
+  - Bouncy Castle Provider (http://www.bouncycastle.org/java.html) org.bouncycastle:bcprov-jdk16:jar:1.46
+    License: Bouncy Castle Licence  (http://www.bouncycastle.org/licence.html)
+
+From: 'Codehaus' (http://www.codehaus.org/)
+  - Plexus :: Component Annotations (http://plexus.codehaus.org/plexus-containers/plexus-component-annotations/) org.codehaus.plexus:plexus-component-annotations:jar:1.5.5
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Plexus Common Utilities (http://plexus.codehaus.org/plexus-utils) org.codehaus.plexus:plexus-utils:jar:3.0.8
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'Schlichtherle IT Services' (http://schlichtherle.de)
+  - TrueZIP Driver FILE (http://truezip.java.net/truezip-driver/truezip-driver-file) de.schlichtherle.truezip:truezip-driver-file:jar:7.6.6
+    License: Eclipse Public License, Version 1.0  (http://www.eclipse.org/legal/epl-v10.html)
+  - TrueZIP Driver ZIP (http://truezip.java.net/truezip-driver/truezip-driver-zip) de.schlichtherle.truezip:truezip-driver-zip:jar:7.6.6
+    License: Eclipse Public License, Version 1.0  (http://www.eclipse.org/legal/epl-v10.html)
+  - TrueZIP File* (http://truezip.java.net/truezip-file) de.schlichtherle.truezip:truezip-file:jar:7.6.6
+    License: Eclipse Public License, Version 1.0  (http://www.eclipse.org/legal/epl-v10.html)
+  - TrueZIP Kernel (http://truezip.java.net/truezip-kernel) de.schlichtherle.truezip:truezip-kernel:jar:7.6.6
+    License: Eclipse Public License, Version 1.0  (http://www.eclipse.org/legal/epl-v10.html)
+
+From: 'Sonatype, Inc.' (http://www.sonatype.com/)
+  - Aether :: API (http://aether.sonatype.org/aether-api/) org.sonatype.aether:aether-api:jar:1.13.1
+    License: Eclipse Public License, Version 1.0  (http://www.eclipse.org/legal/epl-v10.html)
+  - Aether :: Utilities (http://aether.sonatype.org/aether-util/) org.sonatype.aether:aether-util:jar:1.13.1
+    License: Eclipse Public License, Version 1.0  (http://www.eclipse.org/legal/epl-v10.html)
+
+From: 'The Apache Software Foundation' (http://www.apache.org/)
+  - Commons Compress (http://commons.apache.org/compress/) org.apache.commons:commons-compress:jar:1.4.1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Lucene Core (http://lucene.apache.org/java/lucene-parent/lucene-core) org.apache.lucene:lucene-core:jar:3.6.2
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Lucene Highlighter (http://lucene.apache.org/java/lucene-parent/lucene-highlighter) org.apache.lucene:lucene-highlighter:jar:3.6.2
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Lucene Memory (http://lucene.apache.org/java/lucene-parent/lucene-memory) org.apache.lucene:lucene-memory:jar:3.6.2
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Lucene Queries (http://lucene.apache.org/java/lucene-parent/lucene-queries) org.apache.lucene:lucene-queries:jar:3.6.2
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Maven Model (http://maven.apache.org/ref/3.0.4//maven-model) org.apache.maven:maven-model:jar:3.0.4
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Maven Archetype Catalog Model (http://maven.apache.org/archetype/archetype-models/archetype-catalog) org.apache.maven.archetype:archetype-catalog:jar:2.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Maven Archetype Common (http://maven.apache.org/archetype/archetype-common) org.apache.maven.archetype:archetype-common:jar:2.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Maven Archetype Descriptor Model (http://maven.apache.org/archetype/archetype-models/archetype-descriptor) org.apache.maven.archetype:archetype-descriptor:jar:2.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Maven Archetype Registry Model (http://maven.apache.org/archetype/archetype-models/archetype-registry) org.apache.maven.archetype:archetype-registry:jar:2.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Maven :: Indexer Artifact Utils (http://maven.apache.org/maven-indexer-archives/maven-indexer-5.1.1/indexer-artifact) org.apache.maven.indexer:indexer-artifact:jar:5.1.1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Maven Invoker (http://maven.apache.org/shared/maven-invoker/) org.apache.maven.shared:maven-invoker:jar:2.0.11
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Maven Wagon :: API (http://maven.apache.org/wagon//wagon-provider-api) org.apache.maven.wagon:wagon-provider-api:jar:2.3
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+
+
+

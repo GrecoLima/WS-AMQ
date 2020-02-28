@@ -1,0 +1,19 @@
+1581617892911	Rename package 'br.com.sulamerica.lgpd.fis'
+1581617917290	Rename package 'br.com.sulamerica.lgpd.fis.setup'
+1581617937307	Rename package 'br.com.sulamerica.lgpd.fis.model.response'
+1581617947852	Rename package 'br.com.sulamerica.lgpd.fis.route'
+1581617957728	Rename package 'br.com.sulamerica.lgpd.fis.model.request'
+1581617974516	Rename package 'br.com.sulamerica.lgpd.fis.model.def'
+1581617992013	Rename package 'br.com.sulamerica.lgpd.fis.engine'
+1581619492093	Rename field 'LGPD_TRACKING'
+1581626587074	Delete element
+1581626654523	Move compilation unit
+1581626665941	Rename type 'EnvioMovimentacao'
+1581626670334	Delete element
+1581626907285	Rename type 'LgpgSolicitacaoRecebidaResponse'
+1581690105559	Rename field 'LGPD_TRACKING'
+1581707744234	Rename type 'ImportacaoFaturaROute'
+1581708486657	Copy compilation unit
+1581708587169	Copy compilation unit
+1581708674082	Copy compilation unit
+1581708696947	Rename type 'envioMovimentacao'

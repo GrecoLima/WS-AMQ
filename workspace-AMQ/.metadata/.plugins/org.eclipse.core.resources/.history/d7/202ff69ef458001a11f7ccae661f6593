@@ -1,0 +1,4 @@
+amq.u=${AMQ_USER}
+amq.p=${AMQ_PASSWORD}
+amq.url=${AMQ_URL}
+jks.pass=sas

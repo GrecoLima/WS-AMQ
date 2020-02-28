@@ -1,0 +1,41 @@
+package br.com.sulamerica.vidaweb.fis.setup;
+
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+@Component
+public class AMQSetup
+{
+	private static final Logger log = LoggerFactory.getLogger(AMQSetup.class);
+
+	@Value("${amq.u}")
+	private String u;
+
+	@Value("${amq.p}")
+	private String p;
+
+	@Value("${amq.url}")
+	private String url;
+
+	@Bean
+	public ActiveMQConnectionFactory coreConnectionFactory()
+			throws Exception
+	{
+		final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
+
+		log.info("VARIAVEL DE AMBIENTE AMQ_URL {}", url);
+		log.debug("USER {}", u);
+		log.debug("PASSWORD {}", p);
+
+		connectionFactory.setBrokerURL(url.trim());
+		connectionFactory.setUserName(u.trim());
+		connectionFactory.setPassword(p.trim());
+		connectionFactory.setTrustAllPackages(true);
+
+		return connectionFactory;
+	}
+}

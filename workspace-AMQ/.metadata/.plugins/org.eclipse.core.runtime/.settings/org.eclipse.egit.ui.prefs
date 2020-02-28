@@ -1,0 +1,4 @@
+commit_dialog_history_messages=<?xml version\="1.0" encoding\="UTF-8"?>\n<messages>\n<message>start esteira&\#x0A;</message>\n<message>start esteira</message>\n<message>ajuste prop</message>\n<message>prop para develop</message>\n<message>Ajuste senha amq</message>\n<message>ajuste senha no aplication,prop</message>\n<message>ajuste senha ambiente dsv</message>\n<message>ajuste namespace</message>\n<message>Ajuste no tcp (tem que ser igual ao namespace)</message>\n<message>ajuste infra</message>\n</messages>
+eclipse.preferences.version=1
+resourcehistory_graph_split=500,500
+resourcehistory_rev_split=700,300

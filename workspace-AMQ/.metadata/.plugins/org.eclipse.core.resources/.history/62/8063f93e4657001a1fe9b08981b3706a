@@ -1,0 +1,138 @@
+package br.com.sulamerica.vidaweb.fis.model.request;
+
+import java.io.Serializable;
+
+/**
+ * Classe que representa o cabeçalho nos arquivos de importação do SUV
+ *
+ * @author Greco Lima
+ *
+ */
+public class Cabecalho implements Serializable {
+
+	private static final long serialVersionUID = 1539859240856816358L;
+	private String numApolice;
+	private Long numGrupo;
+	private Long numFatura;
+	private Integer numComplementoFatura;
+	private Integer tipoRegistro;
+	private Long sequencia;
+	private String login;
+	private Boolean antecipacao;
+
+	/**
+	 * @return the numApolice
+	 */
+	public String getNumApolice() {
+		return numApolice;
+	}
+
+	/**
+	 * @param numApolice
+	 *            the numApolice to set
+	 */
+	public void setNumApolice(String numApolice) {
+		this.numApolice = numApolice;
+	}
+
+	/**
+	 * @return the numGrupo
+	 */
+	public Long getNumGrupo() {
+		return numGrupo;
+	}
+
+	/**
+	 * @param numGrupo
+	 *            the numGrupo to set
+	 */
+	public void setNumGrupo(Long numGrupo) {
+		this.numGrupo = numGrupo;
+	}
+
+	/**
+	 * @return the numFatura
+	 */
+	public Long getNumFatura() {
+		return numFatura;
+	}
+
+	/**
+	 * @param numFatura
+	 *            the numFatura to set
+	 */
+	public void setNumFatura(Long numFatura) {
+		this.numFatura = numFatura;
+	}
+
+	/**
+	 * @return the numComplementoFatura
+	 */
+	public Integer getNumComplementoFatura() {
+		return numComplementoFatura;
+	}
+
+	/**
+	 * @param numComplementoFatura
+	 *            the numComplementoFatura to set
+	 */
+	public void setNumComplementoFatura(Integer numComplementoFatura) {
+		this.numComplementoFatura = numComplementoFatura;
+	}
+
+	/**
+	 * @return the tipoRegistro
+	 */
+	public Integer getTipoRegistro() {
+		return tipoRegistro;
+	}
+
+	/**
+	 * @param tipoRegistro
+	 *            the tipoRegistro to set
+	 */
+	public void setTipoRegistro(Integer tipoRegistro) {
+		this.tipoRegistro = tipoRegistro;
+	}
+
+	/**
+	 * @return the sequencia
+	 */
+	public Long getSequencia() {
+		return sequencia;
+	}
+
+	/**
+	 * @param sequencia
+	 *            the sequencia to set
+	 */
+	public void setSequencia(Long sequencia) {
+		this.sequencia = sequencia;
+	}
+
+	@Override
+	public String toString() {
+		return "Cabecalho [numApolice=" + numApolice + ", numGrupo=" + numGrupo
+				+ ", numFatura=" + numFatura + ", numComplementoFatura="
+				+ numComplementoFatura + ", tipoRegistro=" + tipoRegistro
+				+ ", sequencia=" + sequencia + ", login=" + login
+				+ ", antecipacao=" + antecipacao + "]";
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public Boolean getAntecipacao() {
+		return antecipacao;
+	}
+
+	public void setAntecipacao(Boolean antecipacao) {
+		this.antecipacao = antecipacao;
+	}
+
+}
